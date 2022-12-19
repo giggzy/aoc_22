@@ -80,7 +80,6 @@ test-output.xml
 cover/
 **/junit/**
 
-
 # Translations
 *.mo
 *.pot
@@ -130,7 +129,6 @@ ipython_config.py
 #   commonly ignored for libraries.
 #   https://python-poetry.org/docs/basic-usage/#commit-your-poetrylock-file-to-version-control
 #poetry.lock
-
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -188,15 +186,18 @@ cython_debug/
 **/tmp/**
 .python-version
 # Ignore local exploration
-**/scratch/** 
+**/scratch/**
 # Ignore python virtualenv
-**/venv/** 
+**/venv/**
 *.db
 # Don't want to load large data files, also to vocab files have a distribution licence
 docker/data_db/**
-
 
 # Gabe .. playing with nix but don't checkin
 shell.nix
 .direnv/**
 
+**/node_modules/**
+
+# Advent of code 
+**/input.txt
