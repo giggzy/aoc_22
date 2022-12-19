@@ -6,5 +6,5 @@
 I always forget howto do this :(
 
 ```bash
-ssh-add --apple-use-keychain ~/.ssh/my_public_key
+ssh-add --apple-use-keychain ~/.ssh/my_private_key
 ```
