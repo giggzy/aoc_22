@@ -59,7 +59,7 @@ class Sissors extends Move {
 }
 
 function playRPS(a: Move, b: Move): number {
-  if (a.isDraw(b)) {
+  if (b.isDraw(a)) {
     // tie
     return 3 + b.getScore();
   } else if (a.isWin(b)) {
@@ -73,21 +73,65 @@ function playRPS(a: Move, b: Move): number {
   return 0;
 }
 
-let total_score = 0;
-for (let line of input.split("\n")) {
-  // do something with each line
-  //console.info(line);
-  // parse the line
-  //let { opp_play, my_play } = line.split(" ", 2);
-  //console.debug(`opp_play: ${opp_play}, my_play: ${my_play}`);
-  let v = line.split(" ");
-  let opp_play = v[0];
-  let my_play = v[1];
-  //console.debug(`opp_play: ${v[0]}, my_play: ${v[1]}`);
+function processFile() {
+  let total_score = 0;
+  for (let line of input.split("\n")) {
+    // do something with each line
 
-  // convert to move
-  let opp_move: Move = new Rock();
+    // parse line
+    let v = line.split(" ");
+    let opp_play = v[0];
+    let my_play = v[1];
+
+    // decode to move
+    let opp_move: Move = decode_opp_move(opp_play);
+    let my_move: Move = decode_my_move(my_play);
+
+    const score = playRPS(opp_move, my_move);
+    total_score += score;
+    /*
+    console.debug(
+      `opp_play: ${opp_play}, ${opp_move}, my_play: ${my_play}, ${my_move}: score: ${score} --> total: ${total_score}`
+    );
+    */
+  }
+  return total_score;
+}
+
+// print out total score
+console.log("------------------------");
+console.log("Grand Total: -> " + processFile());
+console.log("Should be: 11475");
+console.log("------------------------");
+console.log("done");
+
+console.log("---------- Debugging example input -------------");
+console.log(playRPS(new Rock(), new Paper()));
+console.log(playRPS(new Paper(), new Rock()));
+console.log(playRPS(new Sissors(), new Sissors()));
+console.log("------------------------");
+
+function decode_my_move(my_play: string) {
   let my_move: Move = new Rock();
+  switch (my_play) {
+    case "X":
+      my_move = new Rock();
+      break;
+    case "Y":
+      my_move = new Paper();
+      break;
+    case "Z":
+      my_move = new Sissors();
+      break;
+    default:
+      console.warn("my_play error, should not get here", my_play);
+      break;
+  }
+  return my_move;
+}
+
+function decode_opp_move(opp_play: string) {
+  let opp_move: Move = new Rock();
   switch (opp_play) {
     case "A":
       opp_move = new Rock();
@@ -99,37 +143,8 @@ for (let line of input.split("\n")) {
       opp_move = new Sissors();
       break;
     default:
-      console.log("opp_play error, should not get here", opp_play);
+      console.warn("opp_play error, should not get here", opp_play);
       break;
   }
-
-  switch (my_play) {
-    case "X":
-      my_move = new Rock();
-      break;
-    case "Y":
-      opp_move = new Paper();
-      break;
-    case "Z":
-      opp_move = new Sissors();
-      break;
-    default:
-      console.log("my_play error, should not get here", my_play);
-      break;
-  }
-  const score = playRPS(opp_move, my_move);
-  total_score += score;
-  console.debug(
-    `opp_play: ${opp_play}, ${opp_move}, my_play: ${my_play}, ${my_move}: score: ${score} --> total: ${total_score}`
-  );
+  return opp_move;
 }
-console.log("------------------------");
-console.log(playRPS(new Rock(), new Paper()));
-console.log(playRPS(new Paper(), new Rock()));
-console.log(playRPS(new Sissors(), new Sissors()));
-
-// print out total score
-console.log("------------------------");
-console.log(total_score);
-console.log("------------------------");
-console.log("done");
