@@ -2,8 +2,6 @@
 import fs from "fs";
 import path from "path";
 
-let elves_cals: number[] = [];
-let current_total = 0;
 const inputfile = path.join(__dirname, "input.txt");
 const input = fs.readFileSync(inputfile, "utf8");
 
