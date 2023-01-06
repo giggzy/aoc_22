@@ -1,0 +1,31 @@
+#:kivy 2.0
+
+<GOLGame>:
+    id: actions
+    cols: 1
+    rows: 1
+
+    BoxLayout:
+        size_hint_y: None
+        height: 30
+        spacing: 10
+
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Button:
+            #text: str(actions.start_pause)
+            text: "Start"
+            on_press: actions.start_action()
+
+        Button:
+            text: str(actions.clear_stop)
+            on_press: actions.clear_action()
+
+        Button:
+            text: "Random"
+            on_press: actions.start_action()
